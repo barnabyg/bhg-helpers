@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<modify version="6.6.5.0">
+    <add generator="gui">
+        <box name="CustomAdapter2" type="inputadapter">
+            <output port="1" stream="out:CustomAdapter2_1"/>
+            <param name="javaclass" value="com.blizzardtec.streambase.adapters.SecondAdapter"/>
+            <param name="quantity" value="0"/>
+            <param name="schema0" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#13;&#10;&lt;schema name=&quot;schema:CustomAdapter2&quot;&gt;&#13;&#10;    &lt;field description=&quot;Stock symbol&quot; name=&quot;symbol&quot; type=&quot;string&quot;/&gt;&#13;&#10;    &lt;field description=&quot;Number of shares&quot; name=&quot;quantity&quot; type=&quot;int&quot;/&gt;&#13;&#10;&lt;/schema&gt;&#13;&#10;"/>
+            <param name="start:state" value="true"/>
+            <param name="symbol" value="&quot;none&quot;"/>
+            <multiplicity type="single"/>
+            <param name="gui:x" value="11.0"/>
+            <param name="gui:y" value="59.5"/>
+            <param name="gui:width" value="70.0"/>
+            <param name="gui:height" value="70.0"/>
+        </box>
+        <box name="TradeFilter" type="filter">
+            <input port="1" stream="out:CustomAdapter2_1"/>
+            <output port="1" stream="BigTrades"/>
+            <output port="2" stream="AllTheRest"/>
+            <param name="autogen-nomatch-port" value="true"/>
+            <param name="expression.0" value="quantity &gt;= 10000"/>
+            <param name="expression.1" value="true"/>
+            <multiplicity type="single"/>
+            <param name="gui:bends:1" value=""/>
+            <param name="gui:x" value="180.0"/>
+            <param name="gui:y" value="60.83373015873016"/>
+            <param name="gui:width" value="70.0"/>
+            <param name="gui:height" value="70.0"/>
+            <param name="gui:columnwidths" value="257,169"/>
+        </box>
+        <output-stream name="AllTheRest">
+            <param name="gui:bends" value=""/>
+            <param name="gui:x" value="290.0"/>
+            <param name="gui:y" value="82.5"/>
+            <param name="gui:width" value="70.0"/>
+            <param name="gui:height" value="50.0"/>
+        </output-stream>
+        <output-stream name="BigTrades">
+            <param name="gui:bends" value=""/>
+            <param name="gui:x" value="290.0"/>
+            <param name="gui:y" value="0.0"/>
+            <param name="gui:width" value="70.0"/>
+            <param name="gui:height" value="50.0"/>
+        </output-stream>
+    </add>
+</modify>
