@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -17,9 +17,9 @@ public final class StringHelper {
      * Private constructor denotes utility class.
      */
     private StringHelper() {
-        
+
     }
-    
+
     /**
      * Convert a package string (e.g. com.blizzardtec.plugin)
      * in dot notation to a system path string (e.g. com/blizzardtec/plugin).

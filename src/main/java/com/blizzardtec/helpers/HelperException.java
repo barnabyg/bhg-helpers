@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -12,7 +12,7 @@ package com.blizzardtec.helpers;
 public final class HelperException extends Exception {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 3357343587955807854L;
 

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -103,7 +103,7 @@ public final class FileHelperTest extends AbstractTest {
         inputList.add(new File("firstfile.txt"));
         inputList.add(new File("secondfile.doc"));
         inputList.add(new File("thirdfile.doc"));
-        
+
         final Collection<File> resultList =
             FileHelper.selectFilesByExtension(inputList, TEST_EXTENSION);
 
@@ -124,7 +124,7 @@ public final class FileHelperTest extends AbstractTest {
         File file2 = new File(copyFiles1 + File.separator + COPY_FILE2);
 
         files.add(file1);
-        files.add(file2);        
+        files.add(file2);
 
         FileHelper.copyFiles(files, copyFiles2);
 

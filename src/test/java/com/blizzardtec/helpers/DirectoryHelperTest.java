@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -83,7 +83,7 @@ public final class DirectoryHelperTest extends AbstractTest {
         while (iterator.hasNext()) {
             if (TEST_FILE.equalsIgnoreCase(iterator.next().getName())) {
                 flag = true;
-            }            
+            }
         }
 
         assertTrue("The Test file was not found", flag);
@@ -105,7 +105,7 @@ public final class DirectoryHelperTest extends AbstractTest {
         while (iterator.hasNext()) {
             if (TEST_FILE2.equalsIgnoreCase(iterator.next().getName())) {
                 flag = true;
-            }            
+            }
         }
 
         assertTrue("Test file not found", flag);

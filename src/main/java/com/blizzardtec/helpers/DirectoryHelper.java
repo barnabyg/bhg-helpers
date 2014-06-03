@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -19,14 +19,14 @@ public final class DirectoryHelper {
 
     /**
      * Private constructor to denote utility class.
-     */   
+     */
     private DirectoryHelper() {
-        
+
     }
 
     /**
      * Copy a directory and its contents to a new location.
-     * 
+     *
      * @param srcPath
      *            source directory path
      * @param destPath
@@ -46,7 +46,7 @@ public final class DirectoryHelper {
 
     /**
      * Copy a directory and its contents to a new location.
-     * 
+     *
      * @param srcDir
      *            source directory
      * @param dstDir
@@ -58,7 +58,7 @@ public final class DirectoryHelper {
             throws HelperException {
 
         try {
-            FileUtils.copyDirectory(srcDir, dstDir);            
+            FileUtils.copyDirectory(srcDir, dstDir);
         } catch (IOException ioe) {
             throw new HelperException(ioe);
         }
@@ -102,12 +102,11 @@ public final class DirectoryHelper {
     /**
      * Return a list of files in the given directory and recursively
      * in to any sub-directories.
-     * 
+     *
      * @param srcPath
      *            directory path
      * @return list of files
      */
-    @SuppressWarnings("unchecked") 
     public static Collection<File> recursiveDirContents(final String srcPath) {
         final File dir = new File(srcPath);
 
@@ -117,12 +116,11 @@ public final class DirectoryHelper {
     /**
      * Return a list of files in the given directory only, ignoring
      * sub-directories.
-     * 
+     *
      * @param srcPath
      *            directory path
      * @return list of files
      */
-    @SuppressWarnings("unchecked") 
     public static Collection<File> dirContents(final String srcPath) {
         final File dir = new File(srcPath);
 
@@ -138,7 +136,7 @@ public final class DirectoryHelper {
     public static void deleteDir(final File dir)
                                 throws HelperException {
         try {
-            FileUtils.deleteDirectory(dir);            
+            FileUtils.deleteDirectory(dir);
         } catch (IOException ioe) {
             throw new HelperException(ioe);
         }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -42,7 +42,7 @@ public final class XMLHelper {
      * Private constructor denotes utility class.
      */
     private XMLHelper() {
-        
+
     }
 
     /**
@@ -104,7 +104,7 @@ public final class XMLHelper {
         try {
             final TransformerFactory tFactory =
                     TransformerFactory.newInstance();
-            tFactory.setAttribute("indent-number", 2);
+            //tFactory.setAttribute("indent-number", 2);
             transformer = tFactory.newTransformer();
         } catch (TransformerConfigurationException tce) {
             throw new HelperException(tce);
@@ -191,12 +191,12 @@ public final class XMLHelper {
 
             if (node != null) {
                 text = node.getTextContent();
-            }            
+            }
         }
 
         return text;
     }
-    
+
     /**
      * Extract a named node from a list of nodes.
      * Note that if more than one instance of the named node
@@ -217,7 +217,7 @@ public final class XMLHelper {
                 if (nodeName.equalsIgnoreCase(nodeList.item(i).getNodeName())) {
                     node = nodeList.item(i);
                 }
-            }            
+            }
         }
 
         return node;
@@ -240,7 +240,7 @@ public final class XMLHelper {
                 if (attrName.equalsIgnoreCase(map.item(i).getNodeName())) {
                     node = map.item(i);
                 }
-            }            
+            }
         }
 
         return node;
@@ -264,7 +264,7 @@ public final class XMLHelper {
 
             if (node != null) {
                 text = node.getTextContent();
-            }            
+            }
         }
 
         return text;
@@ -292,7 +292,7 @@ public final class XMLHelper {
 
                         node = nodeList.item(i);
                     }
-                }                
+                }
             }
         }
 

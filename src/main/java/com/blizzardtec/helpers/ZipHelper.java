@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -24,7 +24,7 @@ public final class ZipHelper {
      * Private constructor denotes utility class.
      */
     private ZipHelper() {
-        
+
     }
 
     /**
@@ -67,7 +67,10 @@ public final class ZipHelper {
 
                 fos.close();
                 iStream.close();
-            }            
+            }
+
+            jar.close();
+
         } catch (IOException ioe) {
             throw new HelperException(ioe);
         }

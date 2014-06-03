@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -44,7 +44,7 @@ public final class TextPropertiesHelper {
             fileConfig.load();
         } catch (ConfigurationException cfe) {
             throw new HelperException(cfe);
-        }        
+        }
     }
 
     /**
@@ -55,7 +55,7 @@ public final class TextPropertiesHelper {
      * @param value value associated with name tag
      * @throws HelperException thrown
      */
-    public void setProperty(final String name, final String value) 
+    public void setProperty(final String name, final String value)
                     throws HelperException {
 
         try {

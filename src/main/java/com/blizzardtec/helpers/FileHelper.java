@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -19,7 +19,7 @@ import org.apache.commons.io.FileUtils;
  * General purpose utility class for file operations.
  *
  * @author Barnaby Golden
- * 
+ *
  */
 public final class FileHelper {
 
@@ -32,7 +32,7 @@ public final class FileHelper {
 
     /**
      * Copy a file from source to destination directory.
-     * 
+     *
      * @param srcPath
      *            fully qualified file path
      * @param destPath
@@ -69,7 +69,7 @@ public final class FileHelper {
 
     /**
      * Copy a file from source to destination directory.
-     * 
+     *
      * @param sourceFile
      *            fully qualified file path
      * @param destFile
@@ -81,15 +81,15 @@ public final class FileHelper {
             throws HelperException {
 
         try {
-            FileUtils.copyFile(sourceFile, destFile);            
+            FileUtils.copyFile(sourceFile, destFile);
         } catch (IOException ioe) {
-            throw new HelperException(ioe);   
+            throw new HelperException(ioe);
         }
     }
 
     /**
      * Delete the specified file.
-     * 
+     *
      * @param srcPath
      *            fully qualified file path
      * @throws HelperException
@@ -113,7 +113,7 @@ public final class FileHelper {
 
     /**
      * Find the file extension of a given filename.
-     * 
+     *
      * @param filename
      *            the file to use
      * @return file extension of empty string if no extension
@@ -132,7 +132,7 @@ public final class FileHelper {
 
     /**
      * Select the files of a given extension from a list of files.
-     * 
+     *
      * @param allFiles
      *            the list of files to use
      * @param extension
@@ -162,7 +162,7 @@ public final class FileHelper {
 
     /**
      * Copy a set of files to the given destination.
-     * 
+     *
      * @param files
      *            list of files
      * @param destPath
@@ -177,7 +177,7 @@ public final class FileHelper {
         final Iterator<File> iterator = files.iterator();
 
         while (iterator.hasNext()) {
-            copyFile(iterator.next().getPath(), destPath);            
+            copyFile(iterator.next().getPath(), destPath);
         }
     }
 

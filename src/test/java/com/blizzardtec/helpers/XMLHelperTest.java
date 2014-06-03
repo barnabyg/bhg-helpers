@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.blizzardtec.helpers;
 
@@ -162,7 +162,7 @@ public final class XMLHelperTest extends AbstractTest {
         final Document doc = XMLHelper.getDocument();
 
         final Element element = doc.createElement(PARENT);
-        
+
         final NamedNodeMap atts = element.getAttributes();
         final Attr nameAttr = doc.createAttribute(NAME);
         nameAttr.setValue(BOB);
