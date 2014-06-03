@@ -21,26 +21,6 @@
     <maven>3.0.1</maven>
   </prerequisites>
 
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>LATEST</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-configuration</groupId>
-			<artifactId>commons-configuration</artifactId>
-			<version>LATEST</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>LATEST</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-	</dependencies>
 	<build>
 		<plugins>
       <plugin>
@@ -187,4 +167,26 @@
         <url>ftp://www.bhgagile.com/html/bhgagile.com/site/bhg-helpers/</url>
       </site>
   </distributionManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>LATEST</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-configuration</groupId>
+      <artifactId>commons-configuration</artifactId>
+      <version>LATEST</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>LATEST</version>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
 </project>
