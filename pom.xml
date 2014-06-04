@@ -41,7 +41,7 @@
         <configuration>
           <targetJdk>1.7</targetJdk>
           <rulesets>
-            <ruleset>${basedir}\src\main\resources\barnaby-pmd-config.xml</ruleset>
+            <ruleset>${basedir}/src/main/resources/barnaby-pmd-config.xml</ruleset>
           </rulesets>
           <excludes>
             <exclude>**/HelpMojo.java</exclude>
@@ -67,7 +67,7 @@
           <failsOnError>true</failsOnError>
           <violationSeverity>warning</violationSeverity>
           <consoleOutput>true</consoleOutput>
-          <configLocation>${basedir}\src\main\resources\barnaby-checkstyle-config.xml</configLocation>
+          <configLocation>${basedir}/src/main/resources/barnaby-checkstyle-config.xml</configLocation>
         </configuration>
         <executions>
           <execution>
@@ -132,7 +132,7 @@
         <configuration>
           <targetJdk>1.6</targetJdk>
           <rulesets>
-            <ruleset>${basedir}\src\main\resources\barnaby-pmd-config.xml</ruleset>
+            <ruleset>${basedir}/src/main/resources/barnaby-pmd-config.xml</ruleset>
           </rulesets>
           <excludes>
             <exclude>**/HelpMojo.java</exclude>
@@ -144,7 +144,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>${checkstyle.version}</version>
         <configuration>
-          <configLocation>${basedir}\src\main\resources\barnaby-checkstyle-config.xml</configLocation>
+          <configLocation>${basedir}/src/main/resources/barnaby-checkstyle-config.xml</configLocation>
         </configuration>
       </plugin>
       <plugin>
