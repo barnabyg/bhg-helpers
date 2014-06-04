@@ -99,7 +99,7 @@ public final class XMLHelperTest extends AbstractTest {
         XMLHelper.saveXMLFile(XMLHelper.getDocument(), filename);
 
         final File xmlFile = new File(filename);
-        assertTrue("", xmlFile.exists());
+        assertTrue("Unable to find created XML file", xmlFile.exists());
 
         // cleanup
         xmlFile.delete();
@@ -112,11 +112,15 @@ public final class XMLHelperTest extends AbstractTest {
     @Test
     public void loadXMLFileTest() throws HelperException {
 
-        final File xmlFile = new File(getBaseDir() + File.separator + XML_FILE);
+        final File xmlFile = new File(
+                getBaseDir() + File.separator + XML_FILE);
 
         final Document doc = XMLHelper.loadXMLFile(xmlFile);
 
         assertNotNull("XML document from file was null", doc);
+
+        // cleanup
+        xmlFile.delete();
     }
 
     /**

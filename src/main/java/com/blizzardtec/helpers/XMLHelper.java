@@ -78,8 +78,10 @@ public final class XMLHelper {
             final Document doc, final String filename)
                                 throws HelperException {
 
-
         Writer output = null;
+
+        System.out.println("");
+
         final File file = new File(filename);
 
         try {

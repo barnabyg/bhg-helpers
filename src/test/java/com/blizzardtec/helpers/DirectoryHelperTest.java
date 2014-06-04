@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -20,10 +23,6 @@ import org.junit.Test;
 public final class DirectoryHelperTest extends AbstractTest {
 
     /**
-     * Test directory.
-     */
-    private static final String TESTDIR = "test-directory";
-    /**
      * First test file.
      */
     private static final String TEST1TXT = "test1.txt";
@@ -32,38 +31,64 @@ public final class DirectoryHelperTest extends AbstractTest {
      */
     private static final String TEST2TXT = "test2.txt";
     /**
-     * File that forms the contents of directory to be copied.
+     * Dir to be copied.
      */
-    private static final String COPY_FILE = "copydircontents.txt";
+    private static File fullDir;
     /**
-     * Test file name.
+     * Sub directory to be copied.
      */
-    private static final String TEST_FILE = "copy-test-file.txt";
+    private static File subDir;
     /**
-     * Test file name.
+     * Destination for recursive dir copy.
      */
-    private static final String TEST_FILE2 = "copy-test-file2.txt";
+    private static File destDir;
     /**
-     * Path to the first test directory.
+     * Working directory for tests.
      */
-    private final transient String dir1Path;
-    /**
-     * Path to the copy-directory source directory.
-     */
-    private final transient String copy1Path;
-    /**
-     * Path to the copy-directory target directory.
-     */
-    private final transient String copy2Path;
+    private static File scratch;
 
     /**
-     * Constructor - builds some useful paths.
+     * Setup tests.
+     * @throws IOException thrown
      */
-    public DirectoryHelperTest() {
-        super();
-        dir1Path = getBaseDir() + File.separator + "dir1";
-        copy1Path = getBaseDir() + File.separator + "copysrcdir";
-        copy2Path = getBaseDir() + File.separator + "copydstdir";
+    @BeforeClass
+    public static void setUp() throws IOException {
+
+        // make the scratch working directory
+        scratch = new File(
+                    getBaseDir() + File.separator + "scratch");
+
+        scratch.mkdir();
+
+        // make a directory for the dir copy test
+        // and a sub-directory to check recursive copy
+        fullDir = new File(
+                scratch.getPath() + File.separator + "fulldir");
+
+        fullDir.mkdir();
+
+        subDir = new File(
+                fullDir.getPath() + File.separator + "subdir");
+
+        subDir.mkdir();
+
+        // create a test file in the dir to be copied
+        // and one in the sub-directory
+        final File copyFile1 = new File(
+                fullDir.getPath() + File.separator + TEST1TXT);
+
+        copyFile1.createNewFile();
+
+        final File copyFile2 = new File(
+                subDir.getPath() + File.separator + TEST2TXT);
+
+        copyFile2.createNewFile();
+
+        // create a destination directory for recursive copy
+        destDir = new File(
+                scratch.getPath() + File.separator + "destdir");
+
+        destDir.mkdir();
     }
 
     /**
@@ -71,17 +96,18 @@ public final class DirectoryHelperTest extends AbstractTest {
      */
     @Test
     public void directoryContentsTest() {
-        final Collection<File> files =
-            DirectoryHelper.dirContents(dir1Path);
 
-        assertEquals("", 1, files.size());
+        final Collection<File> files =
+            DirectoryHelper.dirContents(fullDir.getPath());
+
+        assertEquals("Did not find the one file expected", 1, files.size());
 
         boolean flag = false;
 
         final Iterator<File> iterator = files.iterator();
 
         while (iterator.hasNext()) {
-            if (TEST_FILE.equalsIgnoreCase(iterator.next().getName())) {
+            if (TEST1TXT.equalsIgnoreCase(iterator.next().getName())) {
                 flag = true;
             }
         }
@@ -96,19 +122,28 @@ public final class DirectoryHelperTest extends AbstractTest {
     public void recursiveDirContentsTest() {
 
         final Collection<File> files =
-            DirectoryHelper.recursiveDirContents(dir1Path);
+            DirectoryHelper.recursiveDirContents(fullDir.getPath());
+
+        assertEquals("Did not find the two expected files", 2, files.size());
 
         boolean flag = false;
 
         final Iterator<File> iterator = files.iterator();
 
         while (iterator.hasNext()) {
-            if (TEST_FILE2.equalsIgnoreCase(iterator.next().getName())) {
+
+            final String fileName = iterator.next().getName();
+
+            if (TEST1TXT.equalsIgnoreCase(fileName)) {
+                flag = true;
+            }
+
+            if (TEST2TXT.equalsIgnoreCase(fileName)) {
                 flag = true;
             }
         }
 
-        assertTrue("Test file not found", flag);
+        assertTrue("Test file(s) not found", flag);
     }
 
     /**
@@ -117,20 +152,22 @@ public final class DirectoryHelperTest extends AbstractTest {
      */
     @Test
     public void copyDirectoryTest() throws HelperException {
-        DirectoryHelper.copyDirectory(copy1Path, copy2Path);
+
+        DirectoryHelper.copyDirectory(fullDir.getPath(), destDir.getPath());
 
         // check the existence of the copied directory
-        final File sourceDir = new File(copy1Path);
+        final File sourceDir = new File(fullDir.getPath());
+
         final File copiedDir =
-            new File(copy2Path + File.separator + sourceDir.getName());
+            new File(destDir.getPath() + File.separator + sourceDir.getName());
 
         assertTrue("Copied directory does not exist", copiedDir.exists());
-        final File copiedFile =
-            new File(copiedDir.getPath() + File.separator + COPY_FILE);
-        assertTrue("Copied file does not exist", copiedFile.exists());
 
-        // cleanup
-        DirectoryHelper.deleteDir(copiedDir);
+        final File copiedFile =
+            new File(copiedDir.getPath() + File.separator + TEST1TXT);
+
+        assertTrue("In recursive directory copy,"
+                    + " the copied file does not exist", copiedFile.exists());
     }
 
     /**
@@ -138,15 +175,13 @@ public final class DirectoryHelperTest extends AbstractTest {
      */
     @Test
     public void createDirectoryTest() {
-        DirectoryHelper.createDirectory(getBaseDir(), TESTDIR);
+
+        DirectoryHelper.createDirectory(scratch.getPath(), "tmpdir");
 
         final File newDir =
-            new File(getBaseDir() + File.separator + TESTDIR);
+            new File(scratch.getPath() + File.separator + "tmpdir");
 
         assertTrue("Directory not created", newDir.exists());
-
-        // cleanup
-        newDir.delete();
     }
 
     /**
@@ -188,5 +223,16 @@ public final class DirectoryHelperTest extends AbstractTest {
         // cleanup
         DirectoryHelper.deleteDir(srcDir);
         DirectoryHelper.deleteDir(dstDir);
+    }
+
+    /**
+     * Tear down test fixtures.
+     * @throws IOException thrown
+     */
+    @AfterClass
+    public static void tearDown() throws IOException {
+
+        FileUtils.deleteDirectory(
+                new File(getBaseDir() + File.separator + "scratch"));
     }
 }

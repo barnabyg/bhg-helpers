@@ -6,7 +6,11 @@ package com.blizzardtec.helpers;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -27,6 +31,19 @@ public final class TextPropertiesHelperTest extends AbstractTest {
      * Test property value.
      */
     private static final String VALUE = "dogboy";
+
+    /**
+     * Setup for test.
+     */
+    @BeforeClass
+    public static void setUp() {
+
+        // make the scratch working directory
+        final File scratch = new File(
+                    getBaseDir() + File.separator + "scratch");
+
+        scratch.mkdir();
+    }
 
     /**
      * Test the update of a property in a text properties file.
@@ -56,5 +73,16 @@ public final class TextPropertiesHelperTest extends AbstractTest {
 
         // cleanup
         propFile.delete();
+    }
+
+    /**
+     * Cleanup after test.
+     * @throws IOException thrown
+     */
+    @AfterClass
+    public static void tearDown() throws IOException {
+
+        FileUtils.deleteDirectory(
+                new File(getBaseDir() + File.separator + "scratch"));
     }
 }

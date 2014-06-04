@@ -35,19 +35,33 @@ public final class FileHelper {
      *
      * @param srcPath
      *            fully qualified file path
-     * @param destPath
+     * @param destDirPath
      *            path to destination directory
      * @throws HelperException
      *             thrown
      */
-    public static void copyFile(final String srcPath, final String destPath)
+    public static void copyFile(final String srcPath, final String destDirPath)
             throws HelperException {
 
         final File sourceFile = new File(srcPath);
-        final File destFile = new File(destPath + File.separator
-                + sourceFile.getName());
+        final File destDir = new File(destDirPath);
 
-        copyFile(sourceFile, destFile);
+        if ((sourceFile.exists()) && (destDir.exists())) {
+
+            final File destFile = new File(destDir + File.separator
+                    + sourceFile.getName());
+
+            copyFile(sourceFile, destFile);
+
+        } else {
+            if (!sourceFile.exists()) {
+                throw new HelperException(
+                        "Copy source file does not exist");
+            } else {
+                throw new HelperException(
+                        "Copy destination dir does not exist");
+            }
+        }
     }
 
     /**
@@ -64,7 +78,12 @@ public final class FileHelper {
         final File sourceFile = new File(srcPath);
         final File destFile = new File(targetPath);
 
-        copyFile(sourceFile, destFile);
+        if (sourceFile.exists()) {
+            copyFile(sourceFile, destFile);
+        } else {
+            throw new HelperException(
+                    "Source file of copy does not exist");
+        }
     }
 
     /**
@@ -80,10 +99,14 @@ public final class FileHelper {
     public static void copyFile(final File sourceFile, final File destFile)
             throws HelperException {
 
-        try {
-            FileUtils.copyFile(sourceFile, destFile);
-        } catch (IOException ioe) {
-            throw new HelperException(ioe);
+        if (sourceFile.exists()) {
+            try {
+                FileUtils.copyFile(sourceFile, destFile);
+            } catch (IOException ioe) {
+                throw new HelperException(ioe);
+            }
+        } else {
+            throw new HelperException("Copy source file does not exist");
         }
     }
 
