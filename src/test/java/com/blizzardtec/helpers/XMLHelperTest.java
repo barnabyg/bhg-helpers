@@ -8,7 +8,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -75,6 +79,23 @@ public final class XMLHelperTest extends AbstractTest {
      * Test XML file.
      */
     private static final String XML_FILE = "test.xml";
+    /**
+     * Working folder for tests.
+     */
+    private static File scratch;
+
+    /**
+     * Setup test.
+     */
+    @BeforeClass
+    public static void setUp() {
+
+        // make the scratch working directory
+        scratch = new File(
+                    getBaseDir() + File.separator + "scratch");
+
+        scratch.mkdir();
+    }
 
     /**
      * Get an XML document test.
@@ -82,27 +103,10 @@ public final class XMLHelperTest extends AbstractTest {
      */
     @Test
     public void getDocumentTest() throws HelperException {
+
         final Document doc = XMLHelper.getDocument();
+
         assertNotNull("Document was null", doc);
-    }
-
-    /**
-     * Save an XML file test.
-     * @throws HelperException thrown
-     */
-    @Test
-    public void saveXMLFileTest() throws HelperException {
-
-        final String filename = getBaseDir() + File.separator
-                        + "testdir" + File.separator + "blah.xml";
-
-        XMLHelper.saveXMLFile(XMLHelper.getDocument(), filename);
-
-        final File xmlFile = new File(filename);
-        assertTrue("Unable to find created XML file", xmlFile.exists());
-
-        // cleanup
-        xmlFile.delete();
     }
 
     /**
@@ -112,15 +116,32 @@ public final class XMLHelperTest extends AbstractTest {
     @Test
     public void loadXMLFileTest() throws HelperException {
 
-        final File xmlFile = new File(
-                getBaseDir() + File.separator + XML_FILE);
+        final String filePath = getBaseDir() + File.separator
+                + "src" + File.separator
+                + "test" + File.separator
+                + "resources" + File.separator + XML_FILE;
+
+        final File xmlFile = new File(filePath);
 
         final Document doc = XMLHelper.loadXMLFile(xmlFile);
 
         assertNotNull("XML document from file was null", doc);
+    }
 
-        // cleanup
-        xmlFile.delete();
+    /**
+     * Save an XML file test.
+     * @throws HelperException thrown
+     */
+    @Test
+    public void saveXMLFileTest() throws HelperException {
+
+        final String filename = scratch.getPath() + File.separator + "blah.xml";
+
+        XMLHelper.saveXMLFile(XMLHelper.getDocument(), filename);
+
+        final File xmlFile = new File(filename);
+
+        assertTrue("Unable to find created XML file", xmlFile.exists());
     }
 
     /**
@@ -227,5 +248,16 @@ public final class XMLHelperTest extends AbstractTest {
         map = foundNode.getAttributes();
         final String colour = XMLHelper.getAttributeTextFromList(map, COLOUR);
         assertEquals("mismatch", BLUE, colour);
+    }
+
+    /**
+     * Tear down.
+     * @throws IOException thrown
+     */
+    @AfterClass
+    public static void tearDown() throws IOException {
+
+        FileUtils.deleteDirectory(
+                new File(getBaseDir() + File.separator + "scratch"));
     }
 }

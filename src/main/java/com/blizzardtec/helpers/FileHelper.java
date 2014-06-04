@@ -53,27 +53,29 @@ public final class FileHelper {
 
             copyFile(sourceFile, destFile);
 
-        } else {
-            if (!sourceFile.exists()) {
-                throw new HelperException(
-                        "Copy source file does not exist");
-            } else {
-                throw new HelperException(
-                        "Copy destination dir does not exist");
-            }
+        }
+
+        if (!sourceFile.exists()) {
+            throw new HelperException("Copy source file does not exist");
+        }
+
+        if (!destDir.exists()) {
+            throw new HelperException("Copy destination dir does not exist");
         }
     }
 
     /**
      * Copy a file to a new location and with a new filename.
      *
-     * @param srcPath path to the source file
-     * @param targetPath name and path of the target file
-     * @throws HelperException thrown
+     * @param srcPath
+     *            path to the source file
+     * @param targetPath
+     *            name and path of the target file
+     * @throws HelperException
+     *             thrown
      */
-    public static void copyAndRenameFile(
-            final String srcPath, final String targetPath)
-                                        throws HelperException {
+    public static void copyAndRenameFile(final String srcPath,
+            final String targetPath) throws HelperException {
 
         final File sourceFile = new File(srcPath);
         final File destFile = new File(targetPath);
@@ -81,8 +83,7 @@ public final class FileHelper {
         if (sourceFile.exists()) {
             copyFile(sourceFile, destFile);
         } else {
-            throw new HelperException(
-                    "Source file of copy does not exist");
+            throw new HelperException("Source file of copy does not exist");
         }
     }
 
@@ -118,15 +119,14 @@ public final class FileHelper {
      * @throws HelperException
      *             thrown
      */
-    public static void deleteFile(final String srcPath)
-            throws HelperException {
+    public static void deleteFile(final String srcPath) throws HelperException {
 
         final File targetFile = new File(srcPath);
 
         // ensure the target file exists
         if (!targetFile.exists()) {
-            throw new HelperException(
-                    "deletion target file does not exist: " + srcPath);
+            throw new HelperException("deletion target file does not exist: "
+                    + srcPath);
         }
         final boolean result = targetFile.delete();
         if (!result) {
@@ -163,8 +163,7 @@ public final class FileHelper {
      * @return the collection of files of the given extension
      */
     public static Collection<File> selectFilesByExtension(
-            final Collection<File> allFiles,
-            final String extension) {
+            final Collection<File> allFiles, final String extension) {
 
         final Collection<File> collection = new ArrayList<File>();
 
@@ -173,8 +172,8 @@ public final class FileHelper {
         while (iterator.hasNext()) {
             final File file = iterator.next();
 
-            if (extension.equalsIgnoreCase(
-                    FileHelper.fileExtension(file.getName()))) {
+            if (extension.equalsIgnoreCase(FileHelper.fileExtension(file
+                    .getName()))) {
 
                 collection.add(file);
             }
@@ -193,9 +192,8 @@ public final class FileHelper {
      * @throws HelperException
      *             thrown on error from file copy
      */
-    public static void copyFiles(
-            final Collection<File> files, final String destPath)
-                                            throws HelperException {
+    public static void copyFiles(final Collection<File> files,
+            final String destPath) throws HelperException {
 
         final Iterator<File> iterator = files.iterator();
 
@@ -206,7 +204,9 @@ public final class FileHelper {
 
     /**
      * Strip the file name out of a fully qualified file path.
-     * @param filePath path
+     *
+     * @param filePath
+     *            path
      * @return file name
      */
     public static String filenameFromPath(final String filePath) {
@@ -215,15 +215,17 @@ public final class FileHelper {
     }
 
     /**
-     * Load a file and return a list of strings
-     * representing the lines in the file.
+     * Load a file and return a list of strings representing the lines in the
+     * file.
      *
-     * @param srcPath file name
+     * @param srcPath
+     *            file name
      * @return list of strings
-     * @throws HelperException thrown on IO error
+     * @throws HelperException
+     *             thrown on IO error
      */
     public static List<String> loadFile(final String srcPath)
-                                            throws HelperException {
+            throws HelperException {
         final List<String> list = new ArrayList<String>();
         BufferedReader inReader = null;
         try {

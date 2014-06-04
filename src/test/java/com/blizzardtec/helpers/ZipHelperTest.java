@@ -6,7 +6,11 @@ package com.blizzardtec.helpers;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -16,13 +20,25 @@ import org.junit.Test;
 public final class ZipHelperTest extends AbstractTest {
 
     /**
-     * Directory to expand war file in.
-     */
-    private static final String WAR_DIR = "warDir";
-    /**
      * Test war file.
      */
     private static final String WAR_FILE = "test.war";
+    /**
+     * Working directory for tests.
+     */
+    private static File scratch;
+    /**
+     * Create the directory needed for the test.
+     */
+    @BeforeClass
+    public static void setUp() {
+
+        // make the scratch working directory
+        scratch = new File(
+                    getBaseDir() + File.separator + "scratch");
+
+        scratch.mkdir();
+    }
 
     /**
      * Test the extraction of a .war file.
@@ -32,19 +48,29 @@ public final class ZipHelperTest extends AbstractTest {
     @Test
     public void extractWarTest() throws HelperException {
 
-        final File warFile = new File(getBaseDir() + File.separator + WAR_FILE);
+        final String warPath = getBaseDir() + File.separator
+                + "src" + File.separator
+                + "test" + File.separator
+                + "resources" + File.separator + WAR_FILE;
 
-        final File expandDir =
-            new File(getBaseDir() + File.separator + WAR_DIR);
-        expandDir.mkdir();
+        final File warFile = new File(warPath);
 
-        ZipHelper.expandWarFile(warFile, expandDir.getPath());
+        ZipHelper.expandWarFile(warFile, scratch.getPath());
 
-        final File metaInf = new File(expandDir + File.separator + "META-INF");
+        final File metaInf = new File(
+                scratch.getPath() + File.separator + "META-INF");
 
-        assertTrue("", metaInf.exists());
+        assertTrue("META-INF file not found", metaInf.exists());
+    }
 
-        // cleanup
-        DirectoryHelper.deleteDir(expandDir);
+    /**
+     * Tear down directories and files created in the testing.
+     * @throws IOException thrown
+     */
+    @AfterClass
+    public static void tearDown() throws IOException {
+
+        FileUtils.deleteDirectory(
+                new File(getBaseDir() + File.separator + "scratch"));
     }
 }
