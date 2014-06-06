@@ -1,6 +1,0 @@
-<project name="BHG Helper Classes">
-	<version location="left"/>
-	<body>
-		<menu ref="reports" />
-	</body>
-</project>
