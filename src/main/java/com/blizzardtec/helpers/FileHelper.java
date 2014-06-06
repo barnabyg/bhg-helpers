@@ -85,7 +85,8 @@ public final class FileHelper {
         if (sourceFile.exists()) {
             copyFile(sourceFile, destFile);
         } else {
-            throw new HelperException("Source file of copy does not exist");
+            throw new HelperException("Source file of copy does not exist: "
+                                                        + sourceFile.getPath());
         }
     }
 
@@ -109,7 +110,8 @@ public final class FileHelper {
                 throw new HelperException(ioe);
             }
         } else {
-            throw new HelperException("Copy source file does not exist");
+            throw new HelperException("Copy source file does not exist: "
+                                                        + sourceFile.getPath());
         }
     }
 
@@ -212,7 +214,9 @@ public final class FileHelper {
      * @return file name
      */
     public static String filenameFromPath(final String filePath) {
+
         final String[] tokens = filePath.split("\\\\");
+
         return tokens[tokens.length - 1];
     }
 
@@ -228,17 +232,24 @@ public final class FileHelper {
      */
     public static List<String> loadFile(final String srcPath)
             throws HelperException {
+
         final List<String> list = new ArrayList<String>();
+
         BufferedReader inReader = null;
+
         try {
+
             inReader = new BufferedReader(new FileReader(srcPath));
             String line = "";
+
             while ((line = inReader.readLine()) != null) {
                 list.add(line);
             }
+
         } catch (Exception ex) {
             throw new HelperException(ex);
         } finally {
+
             try {
                 if (inReader != null) {
                     inReader.close();
