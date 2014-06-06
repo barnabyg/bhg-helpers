@@ -107,6 +107,7 @@ public final class DirectoryHelper {
      *            directory path
      * @return list of files
      */
+    @SuppressWarnings("unchecked")
     public static Collection<File> recursiveDirContents(final String srcPath) {
         final File dir = new File(srcPath);
 
@@ -121,6 +122,7 @@ public final class DirectoryHelper {
      *            directory path
      * @return list of files
      */
+    @SuppressWarnings("unchecked")
     public static Collection<File> dirContents(final String srcPath) {
         final File dir = new File(srcPath);
 
