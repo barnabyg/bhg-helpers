@@ -56,11 +56,13 @@ public final class FileHelper {
         }
 
         if (!sourceFile.exists()) {
-            throw new HelperException("Copy source file does not exist");
+            throw new HelperException("Copy source file does not exist: "
+                                                      + sourceFile.getPath());
         }
 
         if (!destDir.exists()) {
-            throw new HelperException("Copy destination dir does not exist");
+            throw new HelperException("Copy destination dir does not exist: "
+                                                          + destDir.getPath());
         }
     }
 
