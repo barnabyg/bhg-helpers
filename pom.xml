@@ -21,6 +21,14 @@
     <maven>3.0.1</maven>
   </prerequisites>
 
+<!--   <repositories> -->
+<!--     <repository> -->
+<!--       <id>codehaus</id> -->
+<!--       <name>codehaus</name> -->
+<!--       <url>http://snapshots.repository.codehaus.org/</url> -->
+<!--     </repository> -->
+<!--   </repositories> -->
+
   <build>
     <plugins>
       <plugin>
@@ -86,7 +94,7 @@
           <check>
             <haltOnFailure>true</haltOnFailure>
             <branchRate>45</branchRate>
-            <lineRate>50</lineRate>
+            <lineRate>45</lineRate>
             <totalBranchRate>45</totalBranchRate>
             <totalLineRate>50</totalLineRate>
             <packageLineRate>50</packageLineRate>
@@ -104,17 +112,7 @@
         </executions>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+
     <extensions>
       <extension>
         <groupId>org.mod4j.patched</groupId>
@@ -122,6 +120,7 @@
         <version>1.0-beta-5-PATCHED-v1</version>
       </extension>
     </extensions>
+
   </build>
 
   <reporting>
@@ -160,6 +159,11 @@
         <configuration>
         </configuration>
       </plugin>
+<!--       <plugin> -->
+<!--         <groupId>org.codehaus.mojo</groupId> -->
+<!--         <artifactId>findbugs-maven-plugin</artifactId> -->
+<!--         <version>2.5.4</version> -->
+<!--       </plugin> -->
     </plugins>
   </reporting>
 
